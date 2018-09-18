@@ -15,7 +15,7 @@
     <div class="box">
       <div class="box-header">
         <a onclick="addForm()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Penerimaan Baru</a>
-        <a onclick="addForm()" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak BTB</a>
+        <a onclick="" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak BTB</a>
         @if(!empty(session('id_btb')))
         <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Transaksi Aktif</a>
         @endif

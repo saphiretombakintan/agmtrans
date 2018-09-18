@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="kode" class="col-md-3 control-label">Code Item</label>
                         <div class="col-md-6">
-                            <input id="kode" type="number" class="form-control" name="kode" autofocus required>
+                            <input id="kode" type="text" class="form-control" name="kode" autofocus required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

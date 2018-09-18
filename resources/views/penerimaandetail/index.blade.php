@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-  Transaksi Pembelian
+  Inbound Penerimaan
 @endsection
 
 @section('breadcrumb')
    @parent
-   <li>pembelian</li>
+   <li>Inbound</li>
    <li>tambah</li>
 @endsection
 
@@ -18,7 +18,7 @@
      <div class="box-body">
 
 <table>
-  <tr><td width="150">Supplier</td><td><b>{{ $principal->nama_principal }}</b></td></tr>
+  <tr><td width="150">Principal</td><td><b>{{ $principal->nama_principal }}</b></td></tr>
   <tr><td>Alamat</td><td><b>{{ $principal->alamat }}</b></td></tr>
   <tr><td>Telpon</td><td><b>{{ $principal->tlp }}</b></td></tr>
 </table>
@@ -28,7 +28,7 @@
 {{ csrf_field() }}
   <input type="hidden" name="idpenerimaan" value="{{ $idpenerimaan }}">
   <div class="form-group">
-      <label for="kode" class="col-md-2 control-label">Kode Produk</label>
+      <label for="kode" class="col-md-2 control-label">Code Item</label>
       <div class="col-md-5">
         <div class="input-group">
           <input id="kode" type="text" class="form-control" name="kode" autofocus required>
@@ -46,49 +46,51 @@
 <thead>
    <tr>
       <th width="30">No</th>
-      <th>Kode Produk</th>
-      <th>Nama Produk</th>
-      <th align="right">Harga</th>
-      <th>Jumlah</th>
-      <th align="right">Sub Total</th>
+      <th>Code Item</th>
+      <th>Desc</th>
+      <th align="right">Csu</th>
+      <th>Qty Ctn</th>
+      <th align="right">Pcs</th>
       <th align="right">Exp_date</th>
       <th width="100">Aksi</th>
    </tr>
 </thead>
-<tbody></tbody>
+<tbody>
+
+</tbody>
 </table>
 </form>
 <div class="col-md-8">
-     <div id="tampil-bayar" style="background: #dd4b39; color: #fff; font-size: 80px; text-align: center; height: 100px"></div>
-     <div id="tampil-terbilang" style="background: #3c8dbc; color: #fff; font-weight: bold; padding: 10px"></div>
+     {{-- <div id="tampil-bayar" style="background: #dd4b39; color: #fff; font-size: 80px; text-align: center; height: 100px"></div>
+     <div id="tampil-terbilang" style="background: #3c8dbc; color: #fff; font-weight: bold; padding: 10px"></div> --}}
   </div>
 
   <div class="col-md-4">
     <form class="form form-horizontal form-pembelian" method="post" action="{{  route('penerimaan.store') }} ">
       {{ csrf_field() }}
-      <input type="hidden" name="idpembelian" value="{{ $idpenerimaan }}">
+      <input type="hidden" name="idpenerimaan" value="{{ $idpenerimaan }}">
       <input type="hidden" name="total" id="total">
-      <input type="hidden" name="totalitem" id="totalitem">
+      <input type="hidden" name="totalitem" value="{{ $sumqtyctn }}">
       <input type="hidden" name="bayar" id="bayar">
 
-      <div class="form-group">
-        <label for="totalrp" class="col-md-4 control-label">Total</label>
+      {{-- <div class="form-group">
+        <label for="totalrp" class="col-md-4 control-label">Total ctn</label>
         <div class="col-md-8">
-          <input type="text" class="form-control" id="totalrp" readonly>
+          <input type="text" class="form-control" id="totalitem" readonly>
+        </div>
+      </div> --}}
+
+      <div class="form-group">
+        <label for="diskon" class="col-md-4 control-label">No Surat Jalan</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" id="no_SJ" name="no_SJ" autofocus required>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="diskon" class="col-md-4 control-label">Diskon</label>
+        <label for="bayarrp" class="col-md-4 control-label">No Mobil</label>
         <div class="col-md-8">
-          <input type="number" class="form-control" id="diskon" name="diskon" value="0">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="bayarrp" class="col-md-4 control-label">Bayar</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" id="bayarrp" readonly>
+          <input type="text" class="form-control" id="no_mobil" name="no_mobil" autofocus required>
         </div>
       </div>
 
@@ -116,24 +118,25 @@ $(function(){
   $('.tabel-produk').DataTable();
 
   table = $('.tabel-pembelian').DataTable({
-     "dom" : 'Brt',
-     "bSort" : false,
-     "processing" : true,
+     // "dom" : 'Brt',
+     // "bSort" : false,
+     // "processing" : true,
      "ajax" : {
        "url" : "{{ route('penerimaandetail.data', $idpenerimaan) }}",
        "type" : "GET"
      }
   }).on('draw.dt', function(){
-    loadForm($('#diskon').val());
+    loadForm($('').val());
   });
 
 
-  $('.form-produk').on('submit', function(e){
+  $('.form-produk').on('submit', function(){
       return false;
    });
 
    $('#kode').change(function(){
       addItem();
+      loadForm();
    });
 
    $('.form-keranjang').submit(function(){
@@ -142,29 +145,26 @@ $(function(){
 
    $('#diskon').change(function(){
       if($(this).val() == "") $(this).val(0).select();
-      loadForm($(this).val());
+      loadForm();
    });
 
    $('.simpan').click(function(){
       $('.form-pembelian').submit();
    });
 
-   $("date_".$id).datepicker({
-      format: 'yyyy-mm-dd',
-      autoclose: true
-    });
 });
 
 
 function addItem(kode){
   $.ajax({
-    url : "{{ route('route.test') }}",
+    url : "{{ route('penerimaandetail.store') }}",
     type : "POST",
     data : $('.form-produk').serialize(),
     success : function(data){
       $('#kode').val(kode).focus();
       table.ajax.reload(function(){
-        loadForm($('#diskon').val());
+      loadForm($('#diskon').val());
+      location = self.location;
       });
     },
     error : function(){
@@ -175,20 +175,21 @@ function addItem(kode){
 
 function selectItem(kode){
   $('#kode').val(kode);
+  alert(kode);
   $('#modal-produk').modal('hide');
   addItem(kode);
 }
 
 function changeCount(id){
+  var input
      $.ajax({
         url : "penerimaandetail/"+id,
         type : "POST",
         data : $('.form-keranjang').serialize(),
         success : function(data){
           $('#kode').focus();
-          table.ajax.reload(function(){
-            loadForm($('#diskon').val());
-          });
+          table.ajax.reload();
+          location = self.location;
         },
         error : function(){
           alert("Tidak dapat menyimpan data!");
@@ -218,25 +219,8 @@ function deleteItem(id){
    }
 }
 
-function loadForm(diskon=0){
-  // $('#total').val($('.total').text());
-  // $('#totalitem').val($('.totalitem').text());
-  //
-  // $.ajax({
-  //      url : "penerimaandetail/loadform/"+diskon+"/"+$('.total').text(),
-  //      type : "GET",
-  //      dataType : 'JSON',
-  //      success : function(data){
-  //        $('#totalrp').val("Rp. "+data.totalrp);
-  //        $('#bayarrp').val("Rp. "+data.bayarrp);
-  //        $('#bayar').val(data.bayar);
-  //        $('#tampil-bayar').text("Rp. "+data.bayarrp);
-  //        $('#tampil-terbilang').text(data.terbilang);
-  //      },
-  //      error : function(){
-  //        alert("Tidak dapat menampilkan data!!!SS");
-  //      }
-  // });
+function loadForm(diskon=0) {
+
 }
 
 </script>

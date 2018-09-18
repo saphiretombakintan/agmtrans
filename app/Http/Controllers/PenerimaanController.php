@@ -7,6 +7,7 @@ use Redirect;
 use App\Principal;
 use App\Penerimaan;
 use App\PenerimaanDetail;
+use App\Produk;
 
 class PenerimaanController extends Controller
 {
@@ -59,6 +60,7 @@ class PenerimaanController extends Controller
     $penerimaan = new Penerimaan;
     $penerimaan->id_principal = $id;
     $penerimaan->total_item = 0;
+    $penerimaan->tanggal = date('d-m-Y');
     $penerimaan->no_SJ = 0;
     $penerimaan->no_mobil = 0;
 
@@ -78,7 +80,19 @@ class PenerimaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    $pnerimaan = Penerimaan::find($request['idpenerimaan']);
+    $pnerimaan->total_item = $request['totalitem'];
+    $pnerimaan->no_SJ = $request['no_SJ'];
+    $pnerimaan->no_mobil = $request['no_mobil'];
+    $pnerimaan->update();
+
+    $detail = PenerimaanDetail::where('id_btb', '=', $request['idpenerimaan'])->get();
+    foreach($detail as $data){
+      $produk = Produk::where('codeitem', '=', $data->codeitem)->first();
+      $produk->stok += $data->qty_ctn;
+      $produk->update();
+    }
+    return Redirect::route('penerimaan.index');
     }
 
     /**
@@ -97,7 +111,7 @@ class PenerimaanController extends Controller
      $no ++;
      $row = array();
      $row[] = $no;
-     $row[] = $list->kode_produk;
+     $row[] = $list->codeitem;
      $row[] = $list->desc;
      $row[] = $list->csu;
      $row[] = $list->qty_ctn;

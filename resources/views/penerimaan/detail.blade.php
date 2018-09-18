@@ -13,7 +13,7 @@
       <thead>
          <tr>
             <th width="30">No</th>
-            <th>Kode Produk</th>
+            <th>Code Item</th>
             <th>Description</th>
             <th>Csu</th>
             <th>Qty Ctn</th>

@@ -30,10 +30,13 @@ Route::get('/', function () {
       Route::get('penerimaandetail/{id}/data', 'PenerimaanDetailController@listData')->name('penerimaandetail.data');
       Route::get('penerimaandetail/loadform/{diskon}/{total}', 'PenerimaanDetailController@loadForm');
       Route::resource('penerimaandetail', 'PenerimaanDetailController');
-      Route::post('penerimaandetail/post', 'PenerimaanDetailController@store')->name('route.test');
-
+      
       Route::get('principal/data', 'PrincipalController@listData')->name('principal.data');
       Route::resource('principal', 'PrincipalController');
 
       Route::get('lot/data', 'LotController@listData')->name('lot.data');
       Route::resource('lot', 'LotController');
+
+      Route::get('tanggal', function(){
+        echo tanggal_indonesia(date('Y-m-d'));
+      });

@@ -11,6 +11,7 @@
         <table class="table table-striped tabel-produk">
           <thead>
             <tr>
+              <th>idproduct</th>
               <th>Code Item</th>
               <th>Description</th>
               <th>Csu</th>
@@ -20,10 +21,11 @@
           <tbody>
             @foreach($produk as $data)
               <tr>
+                <th>{{ $data->idproduk }}</th>
                 <th>{{ $data->codeitem }}</th>
                 <th>{{ $data->desc }}</th>
                 <th>{{ $data->csu }}</th>
-                <th><a onclick="selectItem({{ $data->codeitem }})" class="btn btn-primary"><i class="fa fa-check-circle"></i> Pilih</a></th>
+                <th><a onclick="selectItem({{ $data->idproduk }})" class="btn btn-primary"><i class="fa fa-check-circle"></i> Pilih</a></th>
               </tr>
             @endforeach
           </tbody>
