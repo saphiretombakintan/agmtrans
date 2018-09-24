@@ -15,8 +15,6 @@
     <div class="box">
       <div class="box-header">
         <a onclick="addForm()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</a>
-        <a onclick="deleteAll()" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
-
       </div>
       <div class="box-body">
 

@@ -15,13 +15,14 @@
     <div class="box">
       <div class="box-header">
         <a onclick="addForm()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Penerimaan Baru</a>
-        <a onclick="" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak BTB</a>
+        <a onclick="printbtb()" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak BTB</a>
         @if(!empty(session('id_btb')))
         <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Transaksi Aktif</a>
         @endif
       </div>
       <div class="box-body">
-
+        <form method="post" id="form-btb">
+        {{ csrf_field() }}
 <table class="table table-striped tabel-pembelian">
 <thead>
    <tr>
@@ -37,6 +38,7 @@
 </thead>
 <tbody></tbody>
 </table>
+</form>
 
       </div>
     </div>
@@ -94,6 +96,13 @@ function deleteData(id){
        }
      });
    }
+}
+function printbtb(){
+  if($('input:checked').length < 1){
+    alert('Pilih data yang akan dicetak!');
+  }else{
+    $('#form-btb').attr('target', '_blank').attr('action', "penerimaan/cetak").submit();
+  }
 }
 </script>
 @endsection

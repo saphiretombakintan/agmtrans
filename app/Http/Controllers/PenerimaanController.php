@@ -8,6 +8,7 @@ use App\Principal;
 use App\Penerimaan;
 use App\PenerimaanDetail;
 use App\Produk;
+use PDF;
 
 class PenerimaanController extends Controller
 {
@@ -157,4 +158,14 @@ class PenerimaanController extends Controller
     {
         //
     }
+
+    public function printbtb(Request $request)
+   {
+     $datapenerimaan = PenerimaanDetail::where('id_btb', $request['id'])->get();
+     $penerimaan = Penerimaan::leftJoin('principal', 'principal.id_principal', '=', 'btbheader.id_principal')
+     ->where('id_btb', $request['id'])->get();
+      $pdf = PDF::loadView('penerimaan.pdf', compact('datapenerimaan', 'penerimaan'));
+      $pdf->setPaper('a4', 'potrait');
+      return $pdf->stream();
+   }
 }

@@ -79,7 +79,7 @@
           <img src="{{ asset('adminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Rudhy</p>
+          <p>Fauzan</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -102,6 +102,8 @@
       {{-- @endif --}}
       <li class="header">Inbound</li>
       <li><a href="{{ route('penerimaan.index')}}"><i class="fa fa-gears"></i> <span>Penerimaan</span></a></li>
+      <li class="header">Outbound</li>
+      <li><a href="{{ route('faktur.index')}}"><i class="fa fa-folder"></i> <span>Faktur Order</span></a></li>
       </ul>
     </section>
   </aside>
