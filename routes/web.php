@@ -42,6 +42,14 @@ Route::post('importproduk', 'FakturController@importExcel');
       Route::get('lot/data', 'LotController@listData')->name('lot.data');
       Route::resource('lot', 'LotController');
 
+      Route::get('transaksi/baru', 'PickingDetailController@newSession')->name('picking.new');
+      Route::get('transaksi/{id}/data', 'PickingDetailController@listData')->name('picking.data');
+      Route::get('transaksi/cetaknota', 'PickingDetailController@printNota')->name('picking.cetak');
+      Route::get('transaksi/notapdf', 'PickingDetailController@notaPDF')->name('picking.pdf');
+      Route::post('transaksi/simpan', 'PickingDetailController@saveData');
+      Route::get('transaksi/loadform/{diskon}/{total}/{diterima}', 'PickingDetailController@loadForm');
+      Route::resource('transaksi', 'PickingDetailController');
+
       // Route::get('tanggal', function(){
       //   echo tanggal_indonesia(date('Y-m-d'));
 

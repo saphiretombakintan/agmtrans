@@ -164,7 +164,8 @@ class PenerimaanController extends Controller
      $datapenerimaan = PenerimaanDetail::where('id_btb', $request['id'])->get();
      $penerimaan = Penerimaan::leftJoin('principal', 'principal.id_principal', '=', 'btbheader.id_principal')
      ->where('id_btb', $request['id'])->get();
-      $pdf = PDF::loadView('penerimaan.pdf', compact('datapenerimaan', 'penerimaan'));
+     $no = 0;
+      $pdf = PDF::loadView('penerimaan.pdf', compact('datapenerimaan', 'penerimaan','no'));
       $pdf->setPaper('a4', 'potrait');
       return $pdf->stream();
    }
