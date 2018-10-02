@@ -104,7 +104,8 @@
       <li><a href="{{ route('penerimaan.index')}}"><i class="fa fa-gears"></i> <span>Penerimaan</span></a></li>
       <li class="header">Outbound</li>
       <li><a href="{{ route('faktur.index')}}"><i class="fa fa-folder"></i> <span>Faktur Order</span></a></li>
-      <li><a href="{{ route('picking.new')}}"><i class="fa fa-folder"></i> <span>Picking</span></a></li>
+      <li><a href="{{ route('picking.index')}}"><i class="fa fa-book"></i> <span>Picking</span></a></li>
+      <li><a href="{{ route('delivery.index')}}"><i class="fa fa-truck"></i> <span>Delivery Order</span></a></li>
       </ul>
     </section>
   </aside>

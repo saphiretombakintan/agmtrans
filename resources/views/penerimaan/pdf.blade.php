@@ -42,29 +42,29 @@
 
     </table>
 
-    <table width="100%" style='font-family:"monospace"; font-size:80%'>
+    <table width="100%" style='font-family:"Sans-serif"; font-size:80%'>
       <tr>
-        <td style='font-family:"monospace"; font-size:80%'>No Surat Jalan</td>
-        <td style='font-family:"monospace"; font-size:80%'>: {{ $penerimaan[0]->no_SJ }}
+        <td style='font-family:"Sans-serif"; font-size:80%'>No Surat Jalan</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'>: {{ $penerimaan[0]->no_SJ }}
         </td>
-        <td style='font-family:"monospace"; font-size:80%'> No BTB</td>
-        <td style='font-family:"monospace"; font-size:80%'>: {{ $penerimaan[0]->id_btb}}
+        <td style='font-family:"Sans-serif"; font-size:80%'> No BTB</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'>: {{ $penerimaan[0]->id_btb}}
       </tr>
       <tr>
-        <td style='font-family:"monospace"; font-size:80%'>No Mobil</td>
-        <td style='font-family:"monospace"; font-size:80%'>: {{ $penerimaan[0]->no_mobil }}</td>
-        <td style='font-family:"monospace"; font-size:80%'> Tanggal</td>
-        <td style='font-family:"monospace"; font-size:80%'>: {{ $penerimaan[0]->tanggal }}</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'>No Mobil</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'>: {{ $penerimaan[0]->no_mobil }}</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'> Tanggal</td>
+        <td style='font-family:"Sans-serif"; font-size:80%'>: {{ $penerimaan[0]->tanggal }}</td>
      </tr>
      <tr>
-       <td style='font-family:"monospace"; font-size:80%'>Terima Dari</td>
-       <td style='font-family:"monospace"; font-size:80%'>: {{ $penerimaan[0]->nama_principal }}</td>
+       <td style='font-family:"Sans-serif"; font-size:80%'>Terima Dari</td>
+       <td style='font-family:"Sans-serif"; font-size:80%'>: {{ $penerimaan[0]->nama_principal }}</td>
     </tr>
 
     </table>
     <hr>
     <font size="2" face="Courier New" >
-    <table class="table table-bordered" style='font-family:"monospace"; font-size:80%'>
+    <table class="table table-bordered" style='font-family:"Sans-serif"; font-size:80%'>
       <thead>
         <tr>
           <th>No</th>
@@ -81,13 +81,13 @@
             @foreach($datapenerimaan as $list)
               <tr>
 
-                <td style='font-family:"monospace"; font-size:80%'>{{ ++$no }}</td>
-                <td style='font-family:"monospace"; font-size:80%'>{{ $list->codeitem }}</td>
-                <td style='font-family:"monospace"; font-size:80%'>{{ $list->desc }}</td>
-                <td style='font-family:"monospace"; font-size:80%'>{{ $list->csu }}</td>
-                <td style='font-family:"monospace"; font-size:80%' align="center">{{ $list->qty_ctn }}</td>
-                <td style='font-family:"monospace"; font-size:80%'>{{ $list->exp_date }}</td>
-                <td style='font-family:"monospace"; font-size:80%'>{{ $list->lot_number }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ ++$no }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ $list->codeitem }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ $list->desc }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ $list->csu }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%' align="center">{{ $list->qty_ctn }}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ tanggal_indonesia(date( $list->exp_date ))}}</td>
+                <td style='font-family:"Sans-serif"; font-size:80%'>{{ $list->lot_number }}</td>
 
               </tr>
 
@@ -99,8 +99,8 @@
 
           <tr>
 
-            <td  colspan="4" align="center" style='font-family:"monospace"; font-size:80%'><b>Total Item</b></td>
-            <td colspan="3" style='font-family:"monospace"; font-size:80%'> <b>{{ $penerimaan[0]->total_item }}</b></td>
+            <td  colspan="4" align="center" style='font-family:"Sans-serif"; font-size:80%'><b>Total Carton</b></td>
+            <td colspan="3" style='font-family:"Sans-serif"; font-size:80%'> <b>{{ $penerimaan[0]->total_item }}</b></td>
 
 
           </tr>
@@ -115,7 +115,7 @@
 
     <h6 class="text-left"><b>BERITA ACARA :</b></h6>
     <h6 class="text-left">Penolakan barang tidak sesuai karena kurang / kadaluarsa / bocor / rusak / salah produk, dengan rincian sebagai berikut </h6>
-    <table class="table table-bordered" style='font-family:"monospace"; font-size:80%'>
+    <table class="table table-bordered" style='font-family:"Sans-serif"; font-size:80%'>
       <thead>
         <tr>
           <th>No</th>
@@ -136,14 +136,13 @@
 
       </table>
 
-      <table class="table table-bordered" style='font-family:"monospace"; font-size:80%'>
+      <table width="100%" style='font-family:"Sans-serif"; font-size:80%'>
         <thead>
           <tr>
-            <th align="center">Dibuat</th>
-            <th align="center">Diperiksa</th>
-            <th align="center">Pengirim</th>
-            <th align="center">Putway</th>
-            <th align="center">Mengetahui</th>
+            <th width="25%" align="center">Dibuat</th>
+            <th width="25%" align="center">Diperiksa</th>
+            <th width="25%" align="center">Pengirim</th>
+            <th width="25%" align="center">Mengetahui</th>
           </tr>
 
             <tbody>
@@ -158,16 +157,17 @@
               <td  height="50"></td>
             </tr>
             <tr>
-            <td  valign="bottom" style='font-family:"monospace"; font-size:80%'>Warehouse Admin</td>
-            <td  valign="bottom" style='font-family:"monospace"; font-size:80%'>Checker</td>
-            <td  valign="bottom" style='font-family:"monospace"; font-size:80%'>Supir Prinsipal</td>
-            <td  valign="bottom" style='font-family:"monospace"; font-size:80%'>Picker</td>
-            <td  valign="bottom" style='font-family:"monospace"; font-size:80%'>SPV Warehouse</td>
+            <td  width="25%" valign="bottom" style='font-family:"Sans-serif"; font-size:80%'>Warehouse Admin</td>
+            <td  width="25%" valign="bottom" style='font-family:"Sans-serif"; font-size:80%'>Checker</td>
+            <td  width="25%" valign="bottom" style='font-family:"Sans-serif"; font-size:80%'>Supir Prinsipal</td>
+            <td  width="25%" valign="bottom" style='font-family:"Sans-serif"; font-size:80%'>SPV Warehouse</td>
           </tr>
 
             </tbody>
 
 
         </table>
+
+        <h6 class="text-left">Picker  : Fauzan</h6>
     </body>
     </html>

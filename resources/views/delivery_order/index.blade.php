@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-  Inbound Penerimaan
+ Picking List
 @endsection
 
 @section('breadcrumb')
    @parent
-   <li>Penerimaan</li>
+   <li>Delivery Order</li>
 @endsection
 
 @section('content')
@@ -14,10 +14,10 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <a onclick="addForm()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Penerimaan Baru</a>
-        <a onclick="printbtb()" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak BTB</a>
+        <a onclick="addForm()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Buat DO</a>
+        <a onclick="printbtb()" class="btn btn-info"><i class="fa fa-barcode"></i> Cetak Picking List</a>
         @if(!empty(session('id_btb')))
-        <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Transaksi Aktif</a>
+        <a href="" class="btn btn-info"><i class="fa fa-plus-circle"></i> Transaksi Aktif</a>
         @endif
       </div>
       <div class="box-body">
@@ -28,11 +28,13 @@
    <tr>
       <th width="20"><input type="checkbox" value="1" id="select-all"></th>
       <th width="30">No</th>
-      <th>Tanggal</th>
+      <th>No Picking</th>
       <th>Principal</th>
-      <th>No Surat Jalan</th>
-      <th>No Mobil</th>
+      <th>Destinasi</th>
       <th>Total Ctn</th>
+      <th>Picker</th>
+      <th>Tanggal</th>
+      <th width="100">Aksi</th>
    </tr>
 </thead>
 <tbody></tbody>
@@ -44,8 +46,8 @@
   </div>
 </div>
 
-@include('penerimaan.detail')
-@include('penerimaan.pricipal')
+@include('delivery_order.detail')
+@include('delivery_order.input')
 @endsection
 
 @section('script')
@@ -56,7 +58,7 @@ $(function(){
      "processing" : true,
      "serverside" : true,
      "ajax" : {
-       "url" : "{{ route('penerimaan.data') }}",
+       "url" : "{{ route('delivery.data') }}",
        "type" : "GET"
      }
    });
@@ -77,14 +79,14 @@ function addForm(){
 function showDetail(id){
     $('#modal-detail').modal('show');
 
-    table1.ajax.url("penerimaan/"+id+"/lihat");
+    table1.ajax.url("delivery/"+id+"/lihat");
     table1.ajax.reload();
 }
 
 function deleteData(id){
    if(confirm("Apakah yakin data akan dihapus?")){
      $.ajax({
-       url : "penerimaan/"+id,
+       url : "Delivery/"+id,
        type : "POST",
        data : {'_method' : 'DELETE', '_token' : $('meta[name=csrf-token]').attr('content')},
        success : function(data){
@@ -100,7 +102,7 @@ function printbtb(){
   if($('input:checked').length < 1){
     alert('Pilih data yang akan dicetak!');
   }else{
-    $('#form-btb').attr('target', '_blank').attr('action', "penerimaan/cetak").submit();
+    $('#form-btb').attr('target', '_blank').attr('action', "delivery/cetak").submit();
   }
 }
 </script>

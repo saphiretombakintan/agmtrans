@@ -19,7 +19,7 @@
 
 <form class="form form-horizontal form-produk" method="post">
 {{ csrf_field() }}
-  <input type="hidden" name="idpenjualan" value="{{ $idpenjualan }}">
+  <input type="hidden" name="idpenjualan" value="{{ $idpicking }}">
   <div class="form-group">
       <label for="kode" class="col-md-2 control-label">Faktur</label>
       <div class="col-md-5">
@@ -57,7 +57,8 @@
   <div class="col-md-4">
     <form class="form form-horizontal form-penjualan" method="post" action="transaksi/simpan">
       {{ csrf_field() }}
-      <input type="hidden" name="idpenjualan" value="{{ $idpenjualan }}">
+      <input type="hidden" name="idpenjualan" value="{{ $idpicking }}">
+      <input type="hidden" name="destinasi" value="{{ $iddestinasi }}">
       <input type="hidden" name="total" id="total">
       <input type="hidden" name="totalitem" id="totalitem">
       <input type="hidden" name="bayar" id="bayar">
@@ -110,10 +111,9 @@ $(function(){
 
   table = $('.tabel-penjualan').DataTable({
 
-     "bSort" : false,
-     "processing" : true,
+
      "ajax" : {
-       "url" : "{{ route('picking.data', $idpenjualan) }}",
+       "url" : "{{ route('picking.data', $idpicking) }}",
        "type" : "GET"
      }
   }).on('draw.dt', function(){

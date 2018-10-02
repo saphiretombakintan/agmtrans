@@ -19,11 +19,18 @@ class PickingDetailController extends Controller
   */
   public function index()
   {
+    $idpicking = session('idpicking');
+    $iddestinasi = session('id_destinasi');
+
     $faktur = Faktur::distinct()->get(['no_faktur', 'need_by_date']);;
-    $idpenjualan = session('idpenjualan');
-    $sumqtyctn = PickingDetail::where('id_picking', session('idpenjualan'))->sum('jml');
+
+    $sumqtyctn = PickingDetail::where('id_picking', session('idpicking'))->sum('jml');
     $tanggal= date('Y-m-d');
-    return view('picking.index', compact('faktur', 'idpenjualan', 'sumqtyctn', 'tanggal'));
+    $detail = Faktur::leftJoin('destination', 'destination.code_destination','=','faktur.code_destinasi')
+    ->leftJoin('principal', 'principal.id_principal', '=', 'faktur.id_principal')
+    ->where('code_destinasi', '=', $iddestinasi)
+    ->get();
+    return view('picking.index', compact('faktur', 'idpenjualan', 'sumqtyctn', 'tanggal', 'detail', 'idpicking', 'iddestinasi'));
   }
 
   /**
@@ -159,6 +166,7 @@ class PickingDetailController extends Controller
       $picking->total_item = $request['total'];
       $picking->picker = 0;
       $picking->tanggal = $request['tanggal'];
+      $picking->code_destination = $request['destinasi'];
       $picking->update();
 
       $detail = PickingDetail::where('id_picking', '=', $request['idpenjualan'])->get();
@@ -167,7 +175,7 @@ class PickingDetailController extends Controller
         $produk->stok -= $data->jml;
         $produk->update();
       }
-      return Redirect::route('picking.pdf');
+      return Redirect::route('picking.index');
    }
 
   public function newSession()
@@ -176,7 +184,7 @@ class PickingDetailController extends Controller
     $picking->id_principal = 0;
     $picking->total_item = 0;
     $picking->picker = 0;
-    $picking->tanggal = 0;
+    $picking->tanggal = '2018-10-01';
     $picking->save();
 
     session(['idpenjualan' => $picking->id_picking]);

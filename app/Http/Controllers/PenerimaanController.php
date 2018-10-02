@@ -20,7 +20,7 @@ class PenerimaanController extends Controller
     public function index()
     {
       $principal = Principal::all();
-    return view('penerimaan.index', compact('principal'));
+      return view('penerimaan.index', compact('principal'));
     }
 
     /**
@@ -41,15 +41,12 @@ class PenerimaanController extends Controller
        $row = array();
        $row[] = "<input type='checkbox' name='id[]'' value='".$list->id_btb."'>";
        $row[] = $no;
-       $row[] = $list->tanggal;
+       $row[] = tanggal_indonesia(date($list->tanggal));
        $row[] = $list->nama_principal;
        $row[] = $list->no_SJ;
        $row[] = $list->no_mobil;
         $row[] = $list->total_item;
-       $row[] = '<div class="btn-group">
-               <a onclick="showDetail('.$list->id_btb.')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-               <a onclick="deleteData('.$list->id_btb.')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-              </div>';
+
        $data[] = $row;
      }
 

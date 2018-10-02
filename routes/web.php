@@ -42,6 +42,18 @@ Route::post('importproduk', 'FakturController@importExcel');
       Route::get('lot/data', 'LotController@listData')->name('lot.data');
       Route::resource('lot', 'LotController');
 
+      Route::get('picking/data', 'PickingController@listData')->name('pickinghead.data');
+      Route::get('picking/{id}/tambah', 'PickingController@create');
+      Route::get('picking/{id}/lihat', 'PickingController@show');
+      Route::get('picking/loadform/{diskon}/{total}', 'PickingController@loadForm');
+      Route::post('picking/cetak', 'PickingController@printnotaPDF');
+      Route::resource('picking', 'PickingController');
+
+
+
+
+
+
       Route::get('transaksi/baru', 'PickingDetailController@newSession')->name('picking.new');
       Route::get('transaksi/{id}/data', 'PickingDetailController@listData')->name('picking.data');
       Route::get('transaksi/cetaknota', 'PickingDetailController@printNota')->name('picking.cetak');
@@ -56,3 +68,18 @@ Route::post('importproduk', 'FakturController@importExcel');
      Route::get('faktur', 'FakturController@index')->name('faktur.index');
      Route::post('faktur', 'FakturController@refresh')->name('faktur.refresh');
      Route::get('faktur/data/{awal}/{akhir}', 'FakturController@listData')->name('faktur.data');
+
+     Route::get('delivery/data', 'DeliveryOrderController@listData')->name('delivery.data');
+     Route::get('delivery/{id}/tambah', 'DeliveryOrderController@create');
+     Route::get('delivery/{id}/lihat', 'DeliveryOrderController@show');
+     Route::get('delivery/loadform/{diskon}/{total}', 'DeliveryOrderController@loadForm');
+     Route::post('delivery/cetak', 'DeliveryOrderController@printbtb');
+     Route::resource('delivery', 'DeliveryOrderController');
+
+     Route::get('delivery_detail/{id}/data', 'DeliveryDetailController@listData')->name('delivery_detail.data');
+     Route::get('delivery_detail/{id}/tambah', 'DeliveryDetailController@create');
+     Route::get('delivery_detail/loadform/{diskon}/{total}', 'DeliveryDetailController@loadForm');
+     Route::get('delivery_detail/data','DeliveryDetailController@update');
+     Route::post('delivery_detail/savedata','DeliveryDetailController@savedata')->name('delivery_detail.savedata');
+     Route::get('delivery_detail/pdf', 'DeliveryDetailController@printdo')->name('deliveryorder.pdf');
+     Route::resource('delivery_detail', 'DeliveryDetailController');
